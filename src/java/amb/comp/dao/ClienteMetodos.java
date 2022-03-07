@@ -93,7 +93,7 @@ public class ClienteMetodos implements ICliente {
             
             psCliente.executeUpdate();
             psCliente.close();
-            
+
             
         } catch (SQLException ex) {
             Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,7 +107,33 @@ public class ClienteMetodos implements ICliente {
 
     @Override
     public boolean actualizarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean bandera = true;
+        //Los PK no se actualizan
+        String sqlCliente = "UPDATE personal SET cedula = ?, nombre = ?, apellido ?, direccion = ?, telefono = ?, correo = ?, fechaNac = ?, salario = ? "
+                + " WHERE idpersona = ?";
+        
+        PreparedStatement psCliente = null;
+        try {          
+            psCliente = conn.prepareStatement(sqlCliente);
+            psCliente.setString(1, cliente.getCedula());
+            psCliente.setString(2, cliente.getNombre());
+            psCliente.setString(3, cliente.getApellido());
+            psCliente.setString(4, cliente.getDireccion());
+            psCliente.setString(5, cliente.getTelefono());
+            psCliente.setString(6, cliente.getCorreo());
+            psCliente.setDate(7, new java.sql.Date(cliente.getFecha().getTime()));
+            psCliente.setDouble(8, cliente.getSalario());
+            
+            psCliente.executeUpdate();
+            psCliente.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            bandera = false;
+         }finally{
+            closeConecction();
+        }  
+        
+        return bandera;
     }
 
     @Override
