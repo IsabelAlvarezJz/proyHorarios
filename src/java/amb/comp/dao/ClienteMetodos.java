@@ -2,6 +2,7 @@ package amb.comp.dao;
 
 import amb.comp.modelo.Cliente;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -65,13 +66,43 @@ public class ClienteMetodos implements ICliente {
     }
 
     @Override
-    public Cliente buscarPorId(int idCliente) {
+    public Cliente buscarPorId(int idCliente) {        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean insertarCliente(Cliente client) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean bandera = true;
+        
+        String sqlCliente = " INSERT INTO personal (cedula, nombre, apellido, direccion, telefono, correo, fechaNac, salario) VALUES( ?, ?, ?, ?, ?, ?, ?, ? )";
+        
+        PreparedStatement psCliente = null;
+        
+        try {
+            psCliente = conn.prepareStatement(sqlCliente);
+            
+            //asigno valores
+            psCliente.setString(1, client.getCedula());
+            psCliente.setString(2, client.getNombre());
+            psCliente.setString(3, client.getApellido());
+            psCliente.setString(4, client.getDireccion());
+            psCliente.setString(5, client.getTelefono());
+            psCliente.setString(6, client.getCorreo());
+            psCliente.setDate(7, new java.sql.Date(client.getFecha().getTime()));
+            psCliente.setDouble(8, client.getSalario());
+            
+            psCliente.executeUpdate();
+            psCliente.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            bandera = false;
+        }finally{
+            closeConecction();
+        }
+        
+        return bandera;
     }
 
     @Override

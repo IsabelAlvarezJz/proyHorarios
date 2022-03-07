@@ -1,12 +1,10 @@
-
 package amb.comp.modelo;
-
 
 import java.util.Date;
 import java.util.List;
 
-
 public class Cliente {
+
     //Atributos
     private int id;
     private String cedula;
@@ -18,8 +16,9 @@ public class Cliente {
     private double salario;
     private Date fecha;
     private List<Cliente> personal;
+
+    //Métodos habituales get y se    
     
-    //Métodos habituales get y set
     public int getId() {
         return id;
     }
@@ -99,7 +98,6 @@ public class Cliente {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
 
     public Cliente() {
     }
@@ -118,7 +116,9 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", salario=" + salario + ", personal=" + personal + '}';
-    }   
-    
+        return "Cliente{" + "id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", salario=" + salario + ", fecha=" + fecha + ", personal=" + personal + '}';
+    }
+
+   
+
 }
