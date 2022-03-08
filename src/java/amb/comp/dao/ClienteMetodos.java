@@ -67,7 +67,36 @@ public class ClienteMetodos implements ICliente {
 
     @Override
     public Cliente buscarPorId(int idCliente) {        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sqlCliente = " SELECT * FROM personal WHERE idpersona = ?";
+        Cliente cliente = null;
+        PreparedStatement psCliente = null;
+        
+        try {
+            psCliente = conn.prepareStatement(sqlCliente);
+            psCliente.setInt(1, idCliente);
+            ResultSet rsCliente = psCliente.executeQuery();
+            //diferencia entre executeQuery y executeUpdate
+            while (rsCliente.next()) {
+                Integer idP = rsCliente.getInt("idpersona");
+                String ced = rsCliente.getString("cedula");
+                String nom = rsCliente.getString("nombre");
+                String ape = rsCliente.getString("apellido");
+                String dir = rsCliente.getString("direccion");
+                String fono = rsCliente.getString("telefono");
+                String email = rsCliente.getString("correo");
+                double sueldo = rsCliente.getDouble("salario");
+                Date fecha = rsCliente.getDate("fechaNac");
+                
+                cliente = new Cliente(idCliente, ced, nom, ape, dir, fono, email, sueldo, fecha);
+                
+            }
+            rsCliente.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            closeConecction();
+        }
+        return cliente;
     }
 
     @Override
@@ -138,7 +167,25 @@ public class ClienteMetodos implements ICliente {
 
     @Override
     public boolean eliminarCliente(int identificador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean bandera = true;
+        
+        String sqlCliente = "DELETE FROM personal WHERE idpersona = ?";
+        PreparedStatement psCliente = null;
+        try {
+            psCliente = conn.prepareStatement(sqlCliente);
+            psCliente.setInt(1, identificador);
+            
+            psCliente.executeUpdate();
+            psCliente.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            bandera = false;
+        }finally{
+            closeConecction();
+        }
+        
+        return bandera;
     }
 
 }

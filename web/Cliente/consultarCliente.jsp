@@ -31,6 +31,8 @@
                     <th>Fecha Nacimiento</th> 
                     <th>Edad</th> 
                     <th>Salario</th> 
+                    <th>Editar</th> 
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <%
@@ -59,6 +61,8 @@
                     
                     out.println("<td>"+ periodo.getYears() +"</td>"); // fecha sistema - fecha nacimiento
                     out.println("<td>" + temp.getSalario() + "</td>");
+                    //implemenatr enlaces para editar y eliminar
+                    
                     out.println("</tr>");
                 }
                 
