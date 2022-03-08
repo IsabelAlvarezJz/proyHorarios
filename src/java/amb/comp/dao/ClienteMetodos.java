@@ -137,8 +137,7 @@ public class ClienteMetodos implements ICliente {
     public boolean actualizarCliente(Cliente cliente) {
         boolean bandera = true;
         //Los PK no se actualizan
-        String sqlCliente = " UPDATE personal SET cedula = ?, nombre = ?, apellido ?, direccion = ?, telefono = ?, correo = ?, fechaNac = ?, salario = ? "
-                + " WHERE idpersona = ? ";
+        String sqlCliente = " UPDATE personal SET cedula = ?, nombre = ?, apellido = ?, direccion = ?, telefono = ?, correo = ?, fechaNac = ?, salario = ? WHERE idpersona = ? ";
         
         PreparedStatement psCliente = null;
         try {          
@@ -151,6 +150,7 @@ public class ClienteMetodos implements ICliente {
             psCliente.setString(6, cliente.getCorreo());
             psCliente.setDate(7, new java.sql.Date(cliente.getFecha().getTime()));
             psCliente.setDouble(8, cliente.getSalario());
+            psCliente.setInt(9, cliente.getId());
             
             psCliente.executeUpdate();
             psCliente.close();

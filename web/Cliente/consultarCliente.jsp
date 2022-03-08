@@ -32,7 +32,7 @@
                     <th>Edad</th> 
                     <th>Salario</th> 
                     <th>Editar</th>
-                    <th>Eliminar</th>
+                    <td>>Eliminar</td>
                 </tr>
             </thead>
             <%
