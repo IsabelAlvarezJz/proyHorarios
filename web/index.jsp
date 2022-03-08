@@ -14,5 +14,6 @@
     <body>
         <h1>Hello World!</h1>
         <p><a href="Cliente/consultarCliente.jsp">Consultar Cliente</a></p>
+        <a href="Cliente/insertarCliente.jsp">Insertar Cliente</a>
     </body>
 </html>
