@@ -3,16 +3,18 @@
     Created on : 7 mar. 2022, 10:44:29
     Author     : Oskar
 --%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <jsp:useBean id="persona" class="amb.comp.modelo.Cliente" scope="application"/>
-<%@page import="java.text.SimpleDateFormat"%>
+
 <jsp:useBean id="personal" class="amb.comp.servicio.ClienteServicio" scope="application" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-    request.setAttribute("idC", request.getParameter("id"));
-    int id = Integer.parseInt((String) request.getAttribute("id"));
+    //request.setAttribute("idC", request.getParameter("id"));
+    int id = Integer.parseInt(request.getParameter("id").toString());
     persona = personal.buscarPorId(id);
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -47,7 +49,7 @@
                 </tr>
                 <tr>
                     <th>Fecha nacimiento</th>
-                    <th><input type="date" name="fecha" value="<%= formatoFecha.format(persona.getFecha().getTime())%>"></th>
+                    <th><input type="date" name="fecha" value="<%= persona.getFecha()%>"></th>
                 </tr>
                 <tr>
                     <th>Salario</th>
@@ -55,7 +57,7 @@
                 </tr>
                 <tr>
                     <th>Dirección</th>
-                    <th><textarea name="direccion" value="<%= persona.getDireccion()%>"></textarea></th>
+                    <th><input type="text" name="direccion" value="<%= persona.getDireccion()%>"></th>
                 </tr>
                 <tr>
                     <td><input type="submit" name="btnEnviar" value="Actualizar">
@@ -71,9 +73,11 @@
                 persona.setApellido(request.getParameter("apellido"));
                 persona.setCorreo(request.getParameter("correo"));
                 persona.setTelefono(request.getParameter("fono"));
+                //Date fecha = formatoFecha.parse(request.getParameter("fecha"));
                 Date fecha = formatoFecha.parse(request.getParameter("fecha"));
                 persona.setFecha(fecha);
-                persona.setSalario(Double.parseDouble(request.getParameter("salario")));
+                double sala = Double.valueOf(request.getParameter("salario"));
+                persona.setSalario(sala);
                 persona.setDireccion(request.getParameter("direccion"));
 
                 if (personal.actualizarCliente(persona)) {

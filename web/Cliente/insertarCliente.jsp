@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                     <th>Dirección</th>
-                    <th><textarea name="direccion" "></textarea></th>
+                    <th><textarea name="direccion"></textarea></th>
                 </tr>
                 <tr>
                     <td><input type="submit" name="btnEnviar" value="Ingreso">
@@ -74,6 +74,7 @@
                 //out.print(cliente)
                 if(personal.insertarCliente(cliente)){
                 out.print("Datos insertados correctamente");
+                out.print(cliente);
             }else{
                 out.print("No fue posible insertar datos");
                 out.print(cliente);

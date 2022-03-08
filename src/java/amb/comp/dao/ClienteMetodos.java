@@ -77,7 +77,6 @@ public class ClienteMetodos implements ICliente {
             ResultSet rsCliente = psCliente.executeQuery();
             //diferencia entre executeQuery y executeUpdate
             while (rsCliente.next()) {
-                Integer idP = rsCliente.getInt("idpersona");
                 String ced = rsCliente.getString("cedula");
                 String nom = rsCliente.getString("nombre");
                 String ape = rsCliente.getString("apellido");
@@ -138,8 +137,8 @@ public class ClienteMetodos implements ICliente {
     public boolean actualizarCliente(Cliente cliente) {
         boolean bandera = true;
         //Los PK no se actualizan
-        String sqlCliente = "UPDATE personal SET cedula = ?, nombre = ?, apellido ?, direccion = ?, telefono = ?, correo = ?, fechaNac = ?, salario = ? "
-                + " WHERE idpersona = ?";
+        String sqlCliente = " UPDATE personal SET cedula = ?, nombre = ?, apellido ?, direccion = ?, telefono = ?, correo = ?, fechaNac = ?, salario = ? "
+                + " WHERE idpersona = ? ";
         
         PreparedStatement psCliente = null;
         try {          
@@ -169,7 +168,7 @@ public class ClienteMetodos implements ICliente {
     public boolean eliminarCliente(int identificador) {
         boolean bandera = true;
         
-        String sqlCliente = "DELETE FROM personal WHERE idpersona = ?";
+        String sqlCliente = " DELETE FROM personal WHERE idpersona = ?";
         PreparedStatement psCliente = null;
         try {
             psCliente = conn.prepareStatement(sqlCliente);

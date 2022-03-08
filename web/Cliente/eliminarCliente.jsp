@@ -6,7 +6,8 @@
 <jsp:useBean id="personal" class="amb.comp.servicio.ClienteServicio" scope="application"/>
 <%
     request.setAttribute("id", request.getParameter("idCliente"));
-    int id = Integer.parseInt((String)request.getAttribute("id"));
+    int id = Integer.parseInt((String) request.getAttribute("id"));
     personal.eliminarCliente(id);
+
 %>
 <jsp:forward page="consultarCliente.jsp" />
