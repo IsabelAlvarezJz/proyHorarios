@@ -40,7 +40,8 @@
                 List<Cliente> listaClientes = personal.buscarClientes();                
                 for (Cliente temp : listaClientes) {
                     
-                    
+                    request.setAttribute("id", temp.getId());
+                    request.setAttribute("idCliente", temp.getId());
                     
                     out.println("<tr>");
                     out.println("<td>" + temp.getId() + "</td>");
@@ -62,6 +63,8 @@
                     out.println("<td>"+ periodo.getYears() +"</td>"); // fecha sistema - fecha nacimiento
                     out.println("<td>" + temp.getSalario() + "</td>");
                     //IMPLEMENTAR ENLACES PARA EDITAR Y ELIMINAR
+                    out.println("<td><a href='Cliente/actualizarCliente.jsp'>Editar</a></td>");
+                    out.println("<td><a href='Cliente/eliminarCliente.jsp'>Eliminar</a></td>");
                     out.println("</tr>");
                 }
                 
