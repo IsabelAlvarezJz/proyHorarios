@@ -17,13 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script>
-            function asegurar()
-            {
-                rc = confirm("¿Seguro que desea Eliminar?");
-                return rc;
-            }
-        </script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
         <table border="1">
@@ -39,15 +33,18 @@
                     <th>Edad</th> 
                     <th>Salario</th> 
                     <th>Editar</th>
-                    <th>Eliminar</th>
+                    <td>Eliminar</td>
                 </tr>
             </thead>
             <%
-                List<Cliente> listaClientes = personal.buscarClientes();
-                for (Cliente temp : listaClientes) {
+                
+                List<Cliente> listaClientes = personal.buscarClientes();                
+                for (Cliente temp : listaClientes) {                    
                     //request.setAttribute("id", temp.getId());
                     int id = temp.getId();
-
+                    
+                    
+                    
                     out.println("<tr>");
                     out.println("<td>" + temp.getId() + "</td>");
                     out.println("<td>" + temp.getCedula() + "</td>");
@@ -56,27 +53,50 @@
                     out.println("<td>" + temp.getTelefono() + "</td>");
                     out.println("<td>" + temp.getCorreo() + "</td>");
                     out.println("<td>" + temp.getFecha() + "</td>"); // VER SI HAY Q DAR FORMATO
-
+                    
                     //funcion calcular fecha
                     DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     Date dia = temp.getFecha();
                     String dateToStr = String.format("%1$tY-%1$tm-%1$td", dia);
                     LocalDate fec = LocalDate.parse(dateToStr, date);
                     LocalDate actual = LocalDate.now();
-                    Period periodo = Period.between(fec, actual);
-
-                    out.println("<td>" + periodo.getYears() + "</td>"); // fecha sistema - fecha nacimiento
+                    Period periodo =Period.between(fec, actual);
+                    
+                    out.println("<td>"+ periodo.getYears() +"</td>"); // fecha sistema - fecha nacimiento
                     out.println("<td>" + temp.getSalario() + "</td>");
                     //IMPLEMENTAR ENLACES PARA EDITAR Y ELIMINAR
-                    String url = "<td><a class='btn-delete'" + "  href='./actualizarCliente.jsp?id=" + temp.getId() + "'> Editar </a></td>";
+                    String url = "<td><a href='./actualizarCliente.jsp?id="+temp.getId()+"'>Editar</a></td>";
                     out.print(url);
-
-                    String urlEliminar = "<td><a href='./eliminarCliente.jsp?idCliente=" + temp.getId() + "' class='btn-delete' > Eliminar </a></td>";
+                    
+                    String urlEliminar = "<td><button onclick='myFunction(" + temp.getId() + ")'>Eliminar</button></td>";
                     out.println(urlEliminar);
-
                     out.println("</tr>");
                 }
+                
             %>
         </table>
+        <script>
+            function myFunction(id) {
+                swal({
+                        title: "Seguro que desea eliminar a la persona?",
+                        text: "Una vez que se elimine a la persona, no podras recuperar la información!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            parent.location.href="./eliminarCliente.jsp?idCliente="+id;
+                            swal("Persona eliminada!", {
+                                icon: "success",
+                            });
+                        } else {
+                          swal("Persona no eliminada!", {
+                            icon: "error",
+                          });
+                        }
+                    });
+            }
+        </script>
     </body>
 </html>

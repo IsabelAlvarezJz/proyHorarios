@@ -8,6 +8,6 @@
     request.setAttribute("id", request.getParameter("idCliente"));
     int id = Integer.parseInt((String) request.getAttribute("id"));
     personal.eliminarCliente(id);
-
+    
 %>
 <jsp:forward page="consultarCliente.jsp" />
