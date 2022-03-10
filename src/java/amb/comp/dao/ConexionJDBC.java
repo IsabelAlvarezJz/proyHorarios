@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 public class ConexionJDBC {
 
     public static Connection conn;
-    private static final String USER = "jhostin";
-    private static final String CLAVE = "jhostin123";
+    private static final String USER = "oscar";
+    private static final String CLAVE = "oscar123";
     private static final String URL = "jdbc:mysql://localhost:3306/bdd_ambientes?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
     private static final String CLASS_DRIVER = "com.mysql.cj.jdbc.Driver";
 
