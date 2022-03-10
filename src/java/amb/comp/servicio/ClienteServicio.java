@@ -10,6 +10,10 @@ public class ClienteServicio {
         return new ClienteMetodos().buscarClientes();
     }
     
+    public String id() {
+        return new ClienteMetodos().id();
+    }
+    
     public Cliente buscarPorId(int idCliente) {
         return new ClienteMetodos().buscarPorId(idCliente);
     }

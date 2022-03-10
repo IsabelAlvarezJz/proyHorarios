@@ -12,8 +12,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Enlaces</h1>
         <p><a href="Cliente/consultarCliente.jsp">Consultar Cliente</a></p>
         <a href="Cliente/insertarCliente.jsp">Insertar Cliente</a>
+        <h3>Tabla Horario</h3>
+        <a href="Horarios/consultarHorarios.jsp">Consultar Horarios</a>
+        <a href="Horarios/insertarHorarios.jsp">Insertar Horarios</a>
+        <h3>Tabla Locales</h3>
+        <a href="Locales/consultarLocales.jsp">Consultar Locales</a>
+        <a href="Locales/insertarLocales.jsp">Insertar Locales</a>
+        
     </body>
 </html>

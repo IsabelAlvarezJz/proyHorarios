@@ -94,15 +94,14 @@ public class HorariosMetodos implements IHorarios {
         try {
             stm = conn.prepareStatement(sqlHorarios);
             stm.setInt(1, idHora);
-            
-            ResultSet rs = stm.executeQuery();          
-            
+
+            ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                
+
                 int entrada = rs.getInt("entrada");
                 int salida = rs.getInt("salida");
-                String dia = rs.getString("dia");                
+                String dia = rs.getString("dia");
                 String codigoLocal = rs.getString("codlocal");
                 String nombreLocal = rs.getString("nombrelocal");
                 int idPersona = rs.getInt("idpersona");
@@ -111,7 +110,7 @@ public class HorariosMetodos implements IHorarios {
 
                 //añadimos los atributos al objeto
                 //int entrada, int salida, String dia, int idPersona, String codigoLocal, String nombreLocal, String nombre, String apellido
-                ho = new Horarios(entrada, salida,  dia,  idPersona,  codigoLocal,  nombreLocal,  nombrePersonal, apellido);
+                ho = new Horarios(entrada, salida, dia, idPersona, codigoLocal, nombreLocal, nombrePersonal, apellido);
 
             }
             rs.close();
@@ -127,17 +126,88 @@ public class HorariosMetodos implements IHorarios {
 
     @Override
     public boolean insertarHorario(Horarios horarios) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean bandera = true;
+
+        String sqlCliente = " INSERT INTO horarios( entrada, salida, dia, id_persona, cod_local) VALUES ( ?, ?, ?, ?, ? )";
+
+        PreparedStatement psHorarios = null;
+
+        try {
+            psHorarios = conn.prepareStatement(sqlCliente);
+
+            psHorarios.setInt(1, horarios.getEntrada());
+            psHorarios.setInt(2, horarios.getSalida());
+            psHorarios.setString(3, horarios.getDia());
+            psHorarios.setInt(4, horarios.getIdPersona());
+            psHorarios.setString(5, horarios.getCodigoLocal());
+
+            psHorarios.executeUpdate();
+            psHorarios.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HorariosMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            bandera = false;
+        } finally {
+            closeConecction();
+        }
+
+        return bandera;
     }
 
     @Override
     public boolean actualizarHorario(Horarios horarios) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        boolean bandera = true;
+
+        String sqlCliente = " UPDATE horarios SET entrada = ?, salida = ?, dia = ?, id_persona = ?, cod_local = ? WHERE idHorario = ? ";
+
+        PreparedStatement psHorarios = null;
+
+        try {
+            psHorarios = conn.prepareStatement(sqlCliente);
+
+            psHorarios.setInt(1, horarios.getEntrada());
+            psHorarios.setInt(2, horarios.getSalida());
+            psHorarios.setString(3, horarios.getDia());
+            psHorarios.setInt(4, horarios.getIdPersona());
+            psHorarios.setString(5, horarios.getCodigoLocal());
+            psHorarios.setInt(6, horarios.getIdHora());
+
+            psHorarios.executeUpdate();
+            psHorarios.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HorariosMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            bandera = false;
+        } finally {
+            closeConecction();
+        }
+
+        return bandera;
     }
 
     @Override
     public boolean eliminarHorarios(int idHora) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        boolean bandera = true;
 
+        String sqlCliente = " DELETE FROM horarios WHERE idHorario = ?";
+        PreparedStatement psCliente = null;
+        try {
+            psCliente = conn.prepareStatement(sqlCliente);
+            psCliente.setInt(1, idHora);
+
+            psCliente.executeUpdate();
+            psCliente.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            bandera = false;
+        } finally {
+            closeConecction();
+        }
+
+        return bandera;
+    }
 }
+
+

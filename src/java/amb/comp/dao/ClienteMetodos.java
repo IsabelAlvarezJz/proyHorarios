@@ -64,6 +64,29 @@ public class ClienteMetodos implements ICliente {
         }
         return listaClientes;
     }
+    
+    
+    public String id(){
+        StringBuilder salidaTabla = new StringBuilder();
+        StringBuilder query  = new StringBuilder();
+        query.append("SELECT idpersona, nombre FROM personal" );
+        
+        try {
+            Statement st=conn.createStatement();
+            ResultSet rs = st.executeQuery(query.toString());
+            while (rs.next()) {
+                salidaTabla.append(" <option value=' ");
+                salidaTabla.append(rs.getInt("idpersona"));
+                salidaTabla.append(" '>");
+                salidaTabla.append(rs.getString("nombre"));
+                salidaTabla.append(" </option>");                
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return salidaTabla.toString();
+    }
 
     @Override
     public Cliente buscarPorId(int idCliente) {        
