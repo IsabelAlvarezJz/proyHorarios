@@ -14,7 +14,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
         <table border="1">
@@ -52,42 +51,20 @@
                     out.println("<td>" + temp.getNombre() + "</td>");
                     out.println("<td>" + temp.getApellido() + "</td>");
 
-                    //IMPLEMENTAR ENLACES PARA EDITAR Y ELIMINAR
-                    String url = "<td><a href='./actualizarHorarios.jsp?id=" + temp.getIdHora() + "'>Editar</a></td>";
-                    out.print(url);
-
-                    String urlEliminar = "<td><button onclick='myFunction(" + temp.getIdHora() + ")'>Eliminar</button></td>";
-                    out.println(urlEliminar);
-
+            %>
+            <td>
+                <a href="actualizarHorarios.jsp?id=<%= temp.getIdHora() %>">Editar</a>
+            </td>
+            <td>
+                <a href="eliminarHorarios.jsp?idHora=<%= temp.getIdHora() %>"
+                   onclick="return confirm('Seguro que desea eliminar el registro?')">Eliminar</a>
+            </td>
+            
+            <%
                     out.println("</tr>");
                 }
-
             %>
 
-
         </table>
-        <script>
-            function myFunction(id) {
-                swal({
-                    title: "Seguro que desea eliminar el horario?",
-                    text: "Una vez que se elimine el horario, no podras recuperar la información!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                        .then((willDelete) => {
-                            if (willDelete) {
-                                parent.location.href = "./eliminarHorarios.jsp?idHora=" + id;
-                                swal("Horario eliminado!", {
-                                    icon: "success",
-                                });
-                            } else {
-                                swal("Horario no eliminado!", {
-                                    icon: "error",
-                                });
-                            }
-                        });
-            }
-        </script>
     </body>
 </html>

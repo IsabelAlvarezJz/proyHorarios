@@ -13,7 +13,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
         <h1>Insertar Locales</h1>
@@ -40,41 +39,19 @@
                     out.println("<td>" + temp.getNombreLocal() + "</td>");
                     out.println("<td>" + temp.getDireccionLocal() + "</td>");
                     out.println("<td>" + temp.getTelflocal() + "</td>");
-
-                    //IMPLEMENTAR ENLACES PARA EDITAR Y ELIMINAR
-                    String url = "<td><a href='./actualizarLocales.jsp?id=" + temp.getCodlocal() + "'>Editar</a></td>";
-                    out.print(url);
-
-                    String urlEliminar = "<td><button onclick='myFunction(" + temp.getCodlocal() + ")'>Eliminar</button></td>";
-                    out.println(urlEliminar);
-
+            %>
+            <td>
+                <a href="actualizarLocales.jsp?id=<%= temp.getCodlocal() %>">Editar</a>
+            </td>
+            <td>
+                <a href="eliminarLocales.jsp?codLocal=<%= temp.getCodlocal() %>"
+                   onclick="return confirm('Seguro que desea eliminar el registro?')">Eliminar</a>
+            </td>
+            
+            <%
                     out.println("</tr>");
                 }
-
             %>
         </table>
-        <script>
-            function myFunction(id) {
-                swal({
-                    title: "Seguro que desea eliminar el Local?",
-                    text: "Una vez que se elimine el Local, no podras recuperar la información!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                        .then((willDelete) => {
-                            if (willDelete) {
-                                parent.location.href = "./eliminarLocales.jsp?codLocal=" + id;
-                                swal("Local eliminado!", {
-                                    icon: "success",
-                                });
-                            } else {
-                                swal("Local no eliminado!", {
-                                    icon: "error",
-                                });
-                            }
-                        });
-            }
-        </script>
     </body>
 </html>
