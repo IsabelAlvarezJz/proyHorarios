@@ -17,7 +17,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
         <table border="1">
@@ -40,11 +39,6 @@
                 
                 List<Cliente> listaClientes = personal.buscarClientes();                
                 for (Cliente temp : listaClientes) {                    
-                    //request.setAttribute("id", temp.getId());
-                    int id = temp.getId();
-                    
-                    
-                    
                     out.println("<tr>");
                     out.println("<td>" + temp.getId() + "</td>");
                     out.println("<td>" + temp.getCedula() + "</td>");
@@ -64,40 +58,20 @@
                     
                     out.println("<td>"+ periodo.getYears() +"</td>"); // fecha sistema - fecha nacimiento
                     out.println("<td>" + temp.getSalario() + "</td>");
-                    //IMPLEMENTAR ENLACES PARA EDITAR Y ELIMINAR
-                    String url = "<td><a href='./actualizarCliente.jsp?id="+temp.getId()+"'>Editar</a></td>";
-                    out.print(url);
-                    
-                    String urlEliminar = "<td><button onclick='myFunction(" + temp.getId() + ")'>Eliminar</button></td>";
-                    out.println(urlEliminar);
-
+            %>
+            <td>
+                <a href="actualizarCliente.jsp?id=<%= temp.getId() %>">Editar</a>
+            </td>
+            <td>
+                <a href="eliminarCliente.jsp?idCliente=<%= temp.getId() %>"
+                   onclick="return confirm('Seguro que desea eliminar el registro?')">Eliminar</a>
+            </td>
+            
+            <%
                     out.println("</tr>");
                 }
-                
             %>
+            
         </table>
-        <script>
-            function myFunction(id) {
-                swal({
-                        title: "Seguro que desea eliminar a la persona?",
-                        text: "Una vez que se elimine a la persona, no podras recuperar la información!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            parent.location.href="./eliminarCliente.jsp?idCliente="+id;
-                            swal("Persona eliminada!", {
-                                icon: "success",
-                            });
-                        } else {
-                          swal("Persona no eliminada!", {
-                            icon: "error",
-                          });
-                        }
-                    });
-            }
-        </script>
     </body>
 </html>
