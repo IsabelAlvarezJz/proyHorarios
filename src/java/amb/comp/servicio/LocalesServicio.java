@@ -18,10 +18,7 @@ public class LocalesServicio {
     public List<Locales> buscarLocales() {
         return new LocalesMetodos().buscarLocales();
     }
-    
-    public String id() {
-        return new LocalesMetodos().id();
-    }
+ 
     
     public Locales buscarPorId(String codlocal) {
         return new LocalesMetodos().buscarPorId(codlocal);
@@ -35,7 +32,7 @@ public class LocalesServicio {
          return new LocalesMetodos().actualizarLocales(local);
     }
    
-    public boolean eliminarLocales(String identificador) {
-         return new LocalesMetodos().eliminarLocales(identificador);
+    public boolean eliminarLocales(String codlocal) {
+         return new LocalesMetodos().eliminarLocales(codlocal);
     }
 }

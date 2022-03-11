@@ -100,7 +100,7 @@ public class LocalesMetodos implements ILocales {
     public boolean insertarLocales(Locales local) {
         boolean bandera = true;
 
-        String sqlLista = " INSERT INTO locales (codlocal, nombrelocal, direccionlocal, telflocal) VALUES( ?, ?, ?, ? )";
+        String sqlLista = " INSERT INTO locales VALUES( ?, ?, ?, ? )";
 
         PreparedStatement psLista = null;
 
@@ -140,7 +140,7 @@ public class LocalesMetodos implements ILocales {
             //asigno valores
             psLista.setString(1, local.getNombreLocal());
             psLista.setString(2, local.getDireccionLocal());
-            psLista.setString(3, local.getTelflocal());            
+            psLista.setString(3, local.getTelflocal());
             psLista.setString(4, local.getCodlocal());
 
             psLista.executeUpdate();
@@ -157,50 +157,26 @@ public class LocalesMetodos implements ILocales {
     }
 
     @Override
-    public boolean eliminarLocales(String identificador) {
+    public boolean eliminarLocales(String codlocal) {
         boolean bandera = true;
-        
-        String sqlLocal = "DELETE FROM locales WHERE locales.codlocal = ?";
+
+        String sqlLocal = " DELETE FROM locales WHERE codlocal = ?";
         PreparedStatement psLocal = null;
         try {
             psLocal = conn.prepareStatement(sqlLocal);
-            psLocal.setString(1, identificador);
-            
+            psLocal.setString(1, codlocal);
+
             psLocal.executeUpdate();
             psLocal.close();
-            
+
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LocalesMetodos.class.getName()).log(Level.SEVERE, null, ex);
             bandera = false;
-        }finally{
+        } finally {
             closeConecction();
         }
-        
+
         return bandera;
     }
-    
-    public String id(){
-        StringBuilder salidaTabla = new StringBuilder();
-        StringBuilder query  = new StringBuilder();
-        query.append("SELECT codlocal, nombrelocal FROM locales" );
-        
-        try {
-            Statement st=conn.createStatement();
-            ResultSet rs = st.executeQuery(query.toString());
-            while (rs.next()) {
-                salidaTabla.append(" <option value=' ");
-                salidaTabla.append(rs.getInt("codlocal"));
-                salidaTabla.append(" '>");
-                salidaTabla.append(rs.getString("nombrelocal"));
-                salidaTabla.append(" </option>");                
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return salidaTabla.toString();
-    }
-
-
 
 }

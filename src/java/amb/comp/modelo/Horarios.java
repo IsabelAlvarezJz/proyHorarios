@@ -26,6 +26,20 @@ public class Horarios {
     public Horarios() {
     }
 
+    /*public Horarios(int entrada, int salida, String dia, int idPersona, String nombreLocal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+
+    public Horarios(int entrada, int salida, String dia, int idPersona, String codigoLocal) {
+        this.entrada = entrada;
+        this.salida = salida;
+        this.dia = dia;
+        this.idPersona = idPersona;
+        this.codigoLocal = codigoLocal;
+    }
+    
+    
+
     public int getIdHora() {
         return idHora;
     }

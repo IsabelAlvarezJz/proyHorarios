@@ -46,7 +46,7 @@ public class HorariosMetodos implements IHorarios {
         List<Horarios> horarios = new ArrayList<Horarios>();
 
         String sqlHorarios = "SELECT * FROM horarios, locales, personal WHERE horarios.id_persona = personal.idpersona \n"
-                + "AND horarios.cod_local = locales.codlocal ORDER BY apellido";
+                + "AND horarios.cod_local = locales.codlocal ORDER BY idHorario";
 
         Horarios ho = null;
         Statement stm = null;
@@ -159,7 +159,7 @@ public class HorariosMetodos implements IHorarios {
 
         boolean bandera = true;
 
-        String sqlCliente = " UPDATE horarios SET entrada = ?, salida = ?, dia = ?, id_persona = ?, cod_local = ? WHERE idHorario = ? ";
+        String sqlCliente = " UPDATE horarios SET entrada = ?, salida = ?, dia = ?, id_persona = ?, cod_local = ? WHERE horarios.idHorario = ? " ;
 
         PreparedStatement psHorarios = null;
 

@@ -4,11 +4,12 @@
     Author     : Familia
 --%>
 
-<jsp:useBean id="local" class="amb.comp.servicio.LocalesServicio" scope="application"/>
+<jsp:useBean id="locales" class="amb.comp.servicio.LocalesServicio" scope="application"/>
 <%
-    request.setAttribute("id", request.getParameter("codlocal"));
-    String id = ((String) request.getAttribute("id"));
-    local.eliminarLocales(id);
+    //request.setAttribute("idC", request.getParameter("id"));
+    request.setAttribute("id", request.getParameter("codLocal"));
+    String id = String.valueOf( request.getAttribute("id"));
+    locales.eliminarLocales(id);
     
 %>
 <jsp:forward page="consultarLocales.jsp" />
