@@ -3,6 +3,8 @@
     Created on : 09/03/2022, 15:54:44
     Author     : Familia
 --%>
+<%@page import="amb.comp.modelo.Cliente"%>
+<%@page import="java.util.List"%>
 <%@page import="amb.comp.modelo.Horarios"%>
 <%@page import="amb.comp.modelo.Locales"%>
 <jsp:useBean id="horarios" class="amb.comp.servicio.HorariosServicio" scope="application" />
@@ -19,7 +21,10 @@
     <body>
         <jsp:useBean id="personal" class="amb.comp.servicio.ClienteServicio" scope="application" />
         <jsp:useBean id="local" class="amb.comp.servicio.LocalesServicio" scope="application" />
-
+        <%
+            List<Cliente> listaCliente = personal.buscarClientes();
+            List<Locales> listaLocales = local.buscarLocales();
+        %>
         <h1>Insertar Horarios</h1>        
         <form method="POST" >
             <table>
@@ -33,19 +38,36 @@
                 </tr>
                 <tr>
                     <th>Dia</th>
-                    <th><input type="text" name="dia"></th>
+                    <th><select name="dia">
+                            <option value="Lunes">Lunes</option>
+                            <option value="martes">Martes</option>
+                            <option value="Miercoles">Miercoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                            <option value="Sabado">Sabado</option>
+                            <option value="Domingo">Domingo</option>
+                        </select>
+                    </th>
                 </tr>
                 <tr>
                     <th>id_persona</th>
-                    <th><select name="idper" ><option> -- Seleccione Personal --</option>
-                            <%= personal.id()%>
-                        </select></th>
+                    <th><select name="idper" >
+                            <option> -- Seleccione Personal --</option>
+                            <% for(Cliente cliente: listaCliente){%>
+                            <option value="<%= cliente.getId() %>"><%= cliente.getApellido()+ " " + cliente.getNombre()  %></option>
+                            <% } %>
+                        </select>
+                    </th>
                 </tr>
                 <tr>
                     <th>cod_local</th>
-                    <th><select name="idL"><option> -- Seleccione Local --</option>
-                            <%= local.id()%>
-                        </select></th>
+                    <th><select name="idL">
+                            <option> -- Seleccione Local --</option>
+                            <% for(Locales temp : listaLocales){%>
+                            <option value="<%= temp.getCodlocal() %>"> <%= temp.getCodlocal() +"-"+temp.getNombreLocal() %> </option>
+                            <% } %>
+                        </select>
+                    </th>
                 </tr>
                 <tr>
                     <td><input type="submit" name="btnEnviar" value="Ingreso">
@@ -61,8 +83,8 @@
                 horar.setEntrada(Integer.parseInt(request.getParameter("entrada")));
                 horar.setSalida(Integer.parseInt(request.getParameter("salida")));
                 horar.setDia(request.getParameter("dia"));
-                //horar.setIdPersona(Integer.parseInt(request.getParameter("idper")));
-                //horar.setCodigoLocal(request.getParameter("idL"));
+                horar.setIdPersona(Integer.parseInt(request.getParameter("idper")));
+                horar.setCodigoLocal(request.getParameter("idL"));
                 
                 if (horarios.insertarHorario(horar)) {
                     out.print("Datos insertados correctamente");

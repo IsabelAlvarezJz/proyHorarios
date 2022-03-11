@@ -159,7 +159,7 @@ public class Horarios {
         this.idPersona = idPersona;
         this.codigoLocal = codigoLocal;
     }
-
+    
     @Override
     public String toString() {
         return "Horarios{" + "idHora=" + idHora + ", entrada=" + entrada + ", salida=" + salida + ", dia=" + dia + ", idPersona=" + idPersona + ", codigoLocal=" + codigoLocal + '}';

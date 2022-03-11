@@ -159,7 +159,7 @@ public class HorariosMetodos implements IHorarios {
 
         boolean bandera = true;
 
-        String sqlCliente = " UPDATE horarios SET entrada = ?, salida = ?, dia = ?, id_persona = ?, cod_local = ? WHERE idHorario = ? ";
+        String sqlCliente = " UPDATE horarios SET entrada = ?, salida = ?, dia = ?, id_persona = ?, cod_local = ? WHERE horarios.idHorario = ? ";
 
         PreparedStatement psHorarios = null;
 
@@ -182,7 +182,7 @@ public class HorariosMetodos implements IHorarios {
         } finally {
             closeConecction();
         }
-
+        
         return bandera;
     }
 

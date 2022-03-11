@@ -152,25 +152,24 @@ public class LocalesMetodos implements ILocales {
         } finally {
             closeConecction();
         }
-
         return bandera;
     }
 
     @Override
-    public boolean eliminarLocales(String identificador) {
+    public boolean eliminarLocales(String codlocal) {
         boolean bandera = true;
         
-        String sqlLocal = "DELETE FROM locales WHERE locales.codlocal = ?";
+        String sqlLocal = " DELETE FROM locales WHERE codlocal = ?";
         PreparedStatement psLocal = null;
         try {
             psLocal = conn.prepareStatement(sqlLocal);
-            psLocal.setString(1, identificador);
+            psLocal.setString(1, codlocal);
             
             psLocal.executeUpdate();
             psLocal.close();
             
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteMetodos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LocalesMetodos.class.getName()).log(Level.SEVERE, null, ex);
             bandera = false;
         }finally{
             closeConecction();
